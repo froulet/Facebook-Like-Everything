@@ -12,6 +12,9 @@ Some friends and I were playing around with Facebook’s new comment-on-enter fe
 
 ![Like Bomb](http://feross.org/images/like-bomb.png)
 
+## How to use this script
 To Use it, don't forget to change the variables 'message1' and 'message2' if you use a language different than English on your facebook account.
 To find the correct messages, inspect the element of a like button by righ-clicking it and then cliking 'Inspect Element'.
-Then find the content of the title attribute of the <a> tag with the class 'UFILikeLink'.
+Then find the content of the title attribute from the <a> tag with the class 'UFILikeLink'.
+
+To use this script, just copy-paste it [in the console of your browser](https://www.youtube.com/watch?v=uMXLiz6vx5s) when you are on a facebook page.
