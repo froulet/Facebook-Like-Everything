@@ -12,10 +12,9 @@ Some friends and I were playing around with Facebook’s new comment-on-enter fe
 
 ![Like Bomb](http://feross.org/images/like-bomb.png)
 
-## Update:
+## How to use this script
+To Use it, don't forget to change the variables 'message1' and 'message2' if you use a language different than English on your facebook account.
+To find the correct messages, inspect the element of a like button by righ-clicking it and then cliking 'Inspect Element'.
+Then find the content of the title attribute from the <a> tag with the class 'UFILikeLink'.
 
-I just updated the bookmarklet to show some UI about the progress of your “like bomb”, as well as a button to stop the liking if you suddenly have a change of heart. Everyone’s bookmarklets should be updated automatically.
-
-## Update 2:
-
-I just fixed a bug in Firefox where clicking the bookmarklet causes the browser to redirect to a page with the message **[object HTMLScriptElement]** shown. You should update your bookmarklet. It turns out that you need to end all JavaScript code within links and bookmarklets with **void(0);** or else the browser will try to follow the link.
+To use this script, just copy-paste it [in the console of your browser](https://www.youtube.com/watch?v=uMXLiz6vx5s) when you are on a facebook page.
