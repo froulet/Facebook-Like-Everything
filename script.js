@@ -5,12 +5,11 @@
     Updated by Frantz Roulet
     Read more: http://feross.org/like-everything-on-facebook/
 */
-
+  var nbposts = 5;
   var nbexpands = 2;
   var count = 1;
   var message1 = 'Like this';
   var message2 = 'Like this comment';
-
 
   function init() {
     /////////////MAIN LOGIC//////////////
@@ -19,10 +18,10 @@
     happyDiv.innerHTML = '<div id=\'happy\' style=\'background-color:#ddd;font-size:16px;text-align:center;position:fixed;top:40px;right:40px;width:200px;height:100px;border:4px solid black;z-index:9999;padding-top:15px;\'><span>0</span> of <span id=\'counthappy\'>0</span> items liked.<div id=\'happyStatus\' style=\'margin-top:9px;\'><a id=\'happyButton\' href=\'#\' style=\'display:block;\' onclick=\'haltFn();\'> Stop it.</a></div><FORM><INPUT type=\'checkbox\' name=\'expands\' value=\'\'>Expand all comments</FORM><button type="button" id=\'but\'>Click Me!</button></div>';
     document.getElementsByTagName('body')[0].appendChild(happyDiv);
 
-    /////ONCLICK/////
+    /////ONCLICK///// 
     document.getElementById('but').addEventListener('click', function() {
 
-    removeElementsByClass('_4ikz');
+    removeDivsByClass('_4ikz');
 
       //Open an wait a little to expand the comments
       openComments();
@@ -81,7 +80,6 @@ function expandComments(){
 
 }
 
-
   function likeeverything() {
     
     //var sad = document.getElementsByTagName('*'),
@@ -138,12 +136,12 @@ function happyFn(happy) {
 
   }
 
-  function removeElementsByClass(className){
-var elements = document.getElementsByClassName(className);
+function removeDivsByClass(className){
+  var elements = document.getElementsByClassName(className);
 
-  while(elements.length > 3){
-      elements[0].parentNode.removeChild(elements[0]);
-  }
+    while(elements.length > nbposts){
+        elements[0].parentNode.removeChild(elements[0]);
+    }
 }
 
 init();
