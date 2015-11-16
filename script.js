@@ -93,7 +93,7 @@ function expandComments(){
     // Convert the sad NodeList to a happy Array.
     for (var i = 0; i < sad.length; i++) {
       //BE CAREFUL WITH YOUR LANGUAGE HERE, CHANGE IT IF NECESSARY
-      if (sad[i] && (sad[i].title == message1 || sad[i].title == message2)) {
+      if (sad[i] && (sad[i].getAttribute("aria-label") == message1 || sad[i].title == message2)) {
         happy.push(sad[i]);
       }
 
