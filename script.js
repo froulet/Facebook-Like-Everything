@@ -11,7 +11,7 @@
   var exempendsallcomments = false;
   var friendsonly = false;
   var halt = false;
-  var nbscrolls = 1;
+  var nbscrolls = 10;
 
   function init() {
     /////////////MAIN LOGIC//////////////
@@ -21,11 +21,18 @@
     happyDiv.innerHTML = "<div id='happy' style='background-color:#ddd;font-size:16px;text-align:center;position:fixed;top:40px;right:40px;width:200px;height:150px;border:4px solid black;z-index:9999;padding-top:15px;'><span>0</span> of <span id='counthappy'>0</span> items liked.<div id='happyStatus' style='margin-top:9px;'><a id='happyButton' href='#' style='display:block;' onclick='haltFn();'> Stop it.</a></div><FORM><INPUT type='checkbox' name='expands' value=''>Expand all comments <br> <INPUT type='checkbox' name='fnonly' value=''>Only like friends post</FORM><button type='button' id='but'>Click Me!</button></div>";
 
     document.getElementsByTagName('body')[0].appendChild(happyDiv);
-    scrollToBottom();
+
     /////ONCLICK/////
     document.getElementById('but').addEventListener('click', function() {
 
+    scrollToBottomAndBegin();
 
+    }, false);
+
+  }
+
+  function start()
+  {
     //Checking parameters
     friendsonly = document.getElementsByName("fnonly")[0].checked;
     exempendsallcomments = document.getElementsByName("expands")[0].checked;
@@ -35,8 +42,6 @@
     //Open an wait a little to expand the comments
     openComments();
     expandComments();
-
-    }, false);
 
   }
 
@@ -120,20 +125,10 @@ function expandComments(){
     // Convert the sad NodeList to a happy Array.
     for (var i = 0; i < sad.length; i++) {
 
-      if(!sad[i]){continue;}
-
-
-
-      var pressed =  sad[i].getAttribute("aria-pressed");
-      if(pressed == 'true')
+      link = checkLink(sad[i]);
+      if(link != null)
       {
-        continue;
-      }
-      var datatest = sad[i].getAttribute("data-testid");
-
-      if (datatest == "fb-ufi-likelink" || datatest == "ufi_comment_like_link") {
-        console.log('one sad');
-        happy.push(sad[i]);
+        happy.push(link);
       }
 
     }
@@ -175,6 +170,24 @@ function happyFn(happy) {
 
     }
 
+function checkLink(link)
+{
+  if(!link){return null;}
+
+  var pressed =  link.getAttribute("aria-pressed");
+  if(pressed == 'true')
+  {
+    return null;
+  }
+
+  var datatest = link.getAttribute("data-testid");
+
+  if (datatest == "fb-ufi-likelink" || datatest == "ufi_comment_like_link") {
+    console.log('one sad');
+    return link;
+  }
+
+}
 
 function removeDivsByClass(className){
   var elements = document.getElementsByClassName(className);
@@ -188,19 +201,25 @@ function getAllFriendsPost()
 {
   console.log("GET ALL FRIENDS POST");
   happy = [];
-  var allpost = document.querySelectorAll("[data-insertion-position]");
+  var allpost = document.querySelectorAll("div[data-testid][data-ft][data-timestamp]");
 
   console.log(allpost.length);
 
   [].forEach.call(allpost, function(post) {
 
     var hovercard = post.querySelector("[data-hovercard]");
+
     console.log(hovercard);
 
-    var lehref = hovercard.getAttribute("href");
+    if(hovercard == null)
+    {
+      return;
+    }
+
+    var lehref = hovercard.getAttribute("data-hovercard");
     console.log(lehref);
 
-    var myRegexp = /\?fref=nf$/g;
+    var myRegexp = /user.php\?/g;
     var match = myRegexp.exec(lehref);
     console.log("LA REGEXP");
 
@@ -215,13 +234,11 @@ function getAllFriendsPost()
     console.log("Le Match");
 
     likelink = post.querySelector("[data-testid=fb-ufi-likelink]");
-    var pressed =  likelink.getAttribute("aria-pressed");
-    if(pressed == 'true')
+    link = checkLink(likelink);
+    if(link != null)
     {
-      return;
+      happy.push(link);
     }
-
-    happy.push(likelink);
 
     return;
 
@@ -232,25 +249,22 @@ function getAllFriendsPost()
 
 }
 
-function scrollToBottom(){
 
-    bottom = document.body.scrollHeight;
-    current = window.innerHeight+ document.body.scrollTop;
-    if(nbscrolls >0){
-      nbscrolls --;
-      toBottom();
-    }
-
-
-    return;
-
-  };
-
-function toBottom()
+function scrollToBottomAndBegin()
 {
 
-  setTimeout (function(){window.scrollTo(0,document.body.scrollHeight); scrollToBottom();}, 1000);
+  setTimeout (function(){
+    window.scrollTo(0,document.body.scrollHeight);
+    if(nbscrolls > 0){
+      nbscrolls--;
+      scrollToBottomAndBegin();
+  }
+  else {
+    start();
+  }
+  }, 1000);
 
 }
+
 
 init();
