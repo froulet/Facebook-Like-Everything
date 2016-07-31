@@ -122,6 +122,13 @@ function expandComments(){
 
       if(!sad[i]){continue;}
 
+
+
+      var pressed =  sad[i].getAttribute("aria-pressed");
+      if(pressed == 'true')
+      {
+        continue;
+      }
       var datatest = sad[i].getAttribute("data-testid");
 
       if (datatest == "fb-ufi-likelink" || datatest == "ufi_comment_like_link") {
@@ -206,7 +213,14 @@ function getAllFriendsPost()
     }
 
     console.log("Le Match");
+
     likelink = post.querySelector("[data-testid=fb-ufi-likelink]");
+    var pressed =  likelink.getAttribute("aria-pressed");
+    if(pressed == 'true')
+    {
+      return;
+    }
+
     happy.push(likelink);
 
     return;
