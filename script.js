@@ -18,7 +18,7 @@
     /////////////MAIN LOGIC//////////////
     //Creating the div with all the elements
     var happyDiv = document.createElement('div');
-    happyDiv.innerHTML = '<div id=\'happy\' style=\'background-color:#ddd;font-size:16px;text-align:center;position:fixed;top:40px;right:40px;width:200px;height:150px;border:4px solid black;z-index:9999;padding-top:15px;\'><span>0</span> of <span id=\'counthappy\'>0</span> items liked.<div id=\'happyStatus\' style=\'margin-top:9px;\'><a id=\'happyButton\' href=\'#\' style=\'display:block;\' onclick=\'haltFn();\'> Stop it.</a></div><FORM><INPUT type=\'checkbox\' name=\'expands\' value=\'\'>Expand all comments <br> <INPUT type=\'checkbox\' name=\'fnonly\' value=\'\'>Only like friends post</FORM><button type="button" id=\'but\'>Click Me!</button></div>';
+    happyDiv.innerHTML = "<div id='happy' style='background-color:#ddd;font-size:16px;text-align:center;position:fixed;top:40px;right:40px;width:200px;height:150px;border:4px solid black;z-index:9999;padding-top:15px;'><span>0</span> of <span id='counthappy'>0</span> items liked.<div id='happyStatus' style='margin-top:9px;'><a id='happyButton' href='#' style='display:block;' onclick='haltFn();'> Stop it.</a></div><FORM><INPUT type='checkbox' name='expands' value=''>Expand all comments <br> <INPUT type='checkbox' name='fnonly' value=''>Only like friends post</FORM><button type="button" id='but'>Click Me!</button></div>";
 
     document.getElementsByTagName('body')[0].appendChild(happyDiv);
 
@@ -135,8 +135,6 @@ function expandComments(){
 
 function happyFn(happy) {
 
-      console.log("HAPPYFN :D");
-
       if (!happy || !happy.length) {
         console.log("BYE");
         document.getElementById('happyStatus').innerHTML = 'Done!';
@@ -149,7 +147,7 @@ function happyFn(happy) {
 
       }
 
-      console.log("UI");
+      console.log("Yes happy");
       happy[0].click();
       happy[0].style.color = '#FF0000';
 
