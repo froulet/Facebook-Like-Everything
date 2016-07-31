@@ -8,22 +8,24 @@
   var nbposts = 5;
   var nbexpands = 2;
   var count = 1;
-  var message1 = 'Like this';
-  var message2 = 'Like this comment';
   var exempendsallcomments = false;
   var friendsonly = false;
   var halt = false;
+  var nbscrolls = 1;
 
   function init() {
     /////////////MAIN LOGIC//////////////
+
     //Creating the div with all the elements
     var happyDiv = document.createElement('div');
     happyDiv.innerHTML = "<div id='happy' style='background-color:#ddd;font-size:16px;text-align:center;position:fixed;top:40px;right:40px;width:200px;height:150px;border:4px solid black;z-index:9999;padding-top:15px;'><span>0</span> of <span id='counthappy'>0</span> items liked.<div id='happyStatus' style='margin-top:9px;'><a id='happyButton' href='#' style='display:block;' onclick='haltFn();'> Stop it.</a></div><FORM><INPUT type='checkbox' name='expands' value=''>Expand all comments <br> <INPUT type='checkbox' name='fnonly' value=''>Only like friends post</FORM><button type='button' id='but'>Click Me!</button></div>";
 
     document.getElementsByTagName('body')[0].appendChild(happyDiv);
-
+    scrollToBottom();
     /////ONCLICK/////
     document.getElementById('but').addEventListener('click', function() {
+
+
     //Checking parameters
     friendsonly = document.getElementsByName("fnonly")[0].checked;
     exempendsallcomments = document.getElementsByName("expands")[0].checked;
@@ -108,11 +110,11 @@ function expandComments(){
       return;
     }
 
-    //var sad = document.getElementsByTagName('*'),
+
     var sad = document.getElementsByTagName('a'),
       happy = [];
 
-    console.log(sad.length);
+    //console.log(sad.length);
 
     // Select only the Like buttons.
     // Convert the sad NodeList to a happy Array.
@@ -167,7 +169,6 @@ function happyFn(happy) {
     }
 
 
-
 function removeDivsByClass(className){
   var elements = document.getElementsByClassName(className);
 
@@ -214,6 +215,27 @@ function getAllFriendsPost()
 
   console.log("DONE, NOW RETURN");
   return happy;
+
+}
+
+function scrollToBottom(){
+
+    bottom = document.body.scrollHeight;
+    current = window.innerHeight+ document.body.scrollTop;
+    if(nbscrolls >0){
+      nbscrolls --;
+      toBottom();
+    }
+
+
+    return;
+
+  };
+
+function toBottom()
+{
+
+  setTimeout (function(){window.scrollTo(0,document.body.scrollHeight); scrollToBottom();}, 1000);
 
 }
 
