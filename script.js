@@ -9,9 +9,9 @@
   var nbexpands = 2;
   var count = 1;
   var exempendsallcomments = false;
-  var friendsonly = false;
+  var friendsonly = true;
   var halt = false;
-  var nbscrolls = 10;
+  var nbscrolls = 2;
 
   function init() {
     /////////////MAIN LOGIC//////////////
@@ -207,7 +207,18 @@ function getAllFriendsPost()
 
   [].forEach.call(allpost, function(post) {
 
-    var hovercard = post.querySelector("[data-hovercard]");
+    var wrappers = post.querySelectorAll(".userContentWrapper");
+
+    wrapper = wrappers[0];
+
+    //If there is more than on user wrapper, we use the second one to determine
+    //if the post is from an user or a page
+    if(wrappers.length > 1)
+    {
+      var wrapper = wrappers[1];
+    }
+
+    var hovercard = wrapper.querySelector("[data-hovercard]");
 
     console.log(hovercard);
 
@@ -266,5 +277,6 @@ function scrollToBottomAndBegin()
 
 }
 
-
+//TO DO : CheckParameters function
+// userContentWrapper
 init();
