@@ -15,3 +15,19 @@ gulp.task('compress', function (cb) {
     cb
   );
 });
+
+var inject = require('gulp-inject');
+
+
+gulp.task('inject', function (cb) {
+  gulp.src('src/FLE.iim')
+    .pipe(inject(gulp.src(['src/bookmarklet.js']), {
+      starttag: '<!-- inject:js -->',
+      removeTags:true,
+      transform: function (filePath, file) {
+        // return file contents as string
+        return file.contents.toString('utf8')
+      }
+    }))
+    .pipe(gulp.dest('./dist'));
+});
