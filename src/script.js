@@ -12,6 +12,8 @@
   var friendsonly = true;
   var halt = false;
   var nbscrolls = 2;
+  //TO DO
+  var likebuttonidentifier = '';
 
   function init() {
     /////////////MAIN LOGIC//////////////
@@ -201,9 +203,9 @@ function getAllFriendsPost()
 {
   console.log("GET ALL FRIENDS POST");
   happy = [];
-  var allpost = document.querySelectorAll("div[data-testid][data-ft][data-timestamp]");
+  var allpost = document.querySelectorAll("div[data-testid][data-fte][data-timestamp]");
 
-  console.log(allpost.length);
+  console.log("NB FRIENDS POST " + allpost.length);
 
   [].forEach.call(allpost, function(post) {
 
