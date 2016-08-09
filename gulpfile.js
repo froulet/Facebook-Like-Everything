@@ -8,7 +8,9 @@ var stripDebug = require('gulp-strip-debug');
 gulp.task('compress', function (cb) {
   pump([
         gulp.src('src/*.js'),
-        uglify(),
+        uglify({
+          mangle: false
+        }),
         stripDebug(),
         gulp.dest('dist')
     ],
@@ -21,7 +23,7 @@ var inject = require('gulp-inject');
 
 gulp.task('inject', function (cb) {
   gulp.src('src/FLE.iim')
-    .pipe(inject(gulp.src(['src/bookmarklet.js']), {
+    .pipe(inject(gulp.src(['dist/script.js']), {
       starttag: '<!-- inject:js -->',
       removeTags:true,
       transform: function (filePath, file) {
