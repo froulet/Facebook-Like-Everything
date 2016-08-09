@@ -2,6 +2,8 @@ var gulp = require('gulp');
 var uglify = require('gulp-uglify');
 var pump = require('pump');
 var stripDebug = require('gulp-strip-debug');
+var replace = require('gulp-replace');
+var inject = require('gulp-inject');
 
 //We use uglify to minify the code
 //and stripDebug to Strip console and debugger statements
@@ -18,12 +20,13 @@ gulp.task('compress', function (cb) {
   );
 });
 
-var inject = require('gulp-inject');
-
 
 gulp.task('inject', function (cb) {
   gulp.src('src/FLE.iim')
-    .pipe(inject(gulp.src(['dist/script.js']), {
+    .pipe(inject(
+      //Piping script.js file while replacing all whitespaces by <SP>
+      gulp.src(['dist/script.js']).pipe(replace(' ', '<SP>')),
+      {
       starttag: '<!-- inject:js -->',
       removeTags:true,
       transform: function (filePath, file) {
